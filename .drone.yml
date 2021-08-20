@@ -405,8 +405,8 @@ steps:
     repo: modem7/docker-rickroll
     purge: true
     compress: true
-    # use_cache: true
-    # cache_from: "modem7/docker-rickroll:test"
+    use_cache: true
+    cache_from: "modem7/docker-rickroll:test"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
       - linux/amd64
       # - linux/arm/v6
