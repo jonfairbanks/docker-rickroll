@@ -208,7 +208,7 @@ steps:
       - linux/arm/v7
       - linux/arm64/v8
     dockerfile: test/Dockerfile
-    context: /test
+    context: test/
     username:
       from_secret: docker_username
     password:
