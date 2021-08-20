@@ -1,7 +1,7 @@
 FROM nginx:stable-alpine as build-stage
 
 COPY test/4k-onclick/src/ /usr/share/nginx/html/
-COPY MP4/rickroll.mp4 /usr/share/nginx/html/rickroll.mp4
+COPY MP4/4k/rickroll.mp4 /usr/share/nginx/html/rickroll.mp4
 COPY test/4k-onclick/conf/nginx-site.conf /etc/nginx/conf.d/default.conf
 
 FROM nginx:stable-alpine
