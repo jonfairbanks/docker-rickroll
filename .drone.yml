@@ -433,6 +433,3 @@ steps:
 trigger:
   branch:
   - test
-
-depends_on:
-  - linttest
