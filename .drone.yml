@@ -1,44 +1,4 @@
 ---
-kind: pipeline
-type: docker
-name: lint
-steps:
-  - name: Lint Dockerfile
-    image: hadolint/hadolint:latest-alpine
-    pull: if-not-exists
-    commands:
-      - hadolint --version
-      - hadolint Dockerfile*
-
-trigger:
-  event:
-    - cron
-  cron:
-    - rickroll_latest
-    - rickroll_youtube
-    - rickroll_onclick
-    - rickroll_1080
-    - rickroll_1080onclick
-    - rickroll_4k
-    - rickroll_4konclick
-
----
-kind: pipeline
-type: docker
-name: linttest
-steps:
-  - name: Lint Test Dockerfile
-    image: hadolint/hadolint:latest-alpine
-    pull: if-not-exists
-    commands:
-      - hadolint --version
-      - hadolint test/Dockerfile*
-
-trigger:
-  branch:
-  - test
-
----
 
 kind: pipeline
 type: docker
@@ -49,6 +9,14 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint ./SD/piholeunbound/Dockerfile*
+
+steps:
 - name: latest  
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -56,6 +24,7 @@ steps:
     repo: modem7/docker-rickroll
     purge: true
     compress: true
+    squash: true
     use_cache: true
     cache_from: "modem7/docker-rickroll:latest"
     dockerfile: SD/Dockerfile
@@ -84,9 +53,6 @@ trigger:
   cron:
   - rickroll_latest
 
-depends_on:
-  - lint
-
 ---
 
 kind: pipeline
@@ -98,6 +64,14 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint ./SD/onclick/Dockerfile*
+
+steps:
 - name: onclick  
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -106,6 +80,7 @@ steps:
     purge: true
     compress: true
     use_cache: true
+    squash: true
     cache_from: "modem7/docker-rickroll:onclick"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
       - linux/amd64
@@ -134,9 +109,6 @@ trigger:
   cron:
   - rickroll_onclick
 
-depends_on:
-  - lint
-  
 ---
 
 kind: pipeline
@@ -148,6 +120,14 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint ./youtube/Dockerfile*
+
+steps:
 - name: youtube  
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -156,6 +136,7 @@ steps:
     purge: true
     compress: true
     use_cache: true
+    squash: true
     cache_from: "modem7/docker-rickroll:youtube"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
       - linux/amd64
@@ -184,9 +165,6 @@ trigger:
   cron:
   - rickroll_youtube
 
-depends_on:
-  - lint
-
 ---
 
 kind: pipeline
@@ -198,6 +176,14 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint ./1080/Dockerfile*
+
+steps:
 - name: 1080
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -206,6 +192,7 @@ steps:
     purge: true
     compress: true
     use_cache: true
+    squash: true
     cache_from: "modem7/docker-rickroll:1080"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
       - linux/amd64
@@ -234,9 +221,6 @@ trigger:
   cron:
   - rickroll_1080
 
-depends_on:
-  - lint
-
 ---
 
 kind: pipeline
@@ -248,6 +232,14 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint ./1080/onclick/Dockerfile*
+
+steps:
 - name: 1080onclick
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -256,6 +248,7 @@ steps:
     purge: true
     compress: true
     use_cache: true
+    squash: true
     cache_from: "modem7/docker-rickroll:1080onclick"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
       - linux/amd64
@@ -284,9 +277,6 @@ trigger:
   cron:
   - rickroll_1080onclick
 
-depends_on:
-  - lint
-
 ---
 
 kind: pipeline
@@ -298,6 +288,14 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint ./4k/Dockerfile*
+
+steps:
 - name: 4k
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -306,6 +304,7 @@ steps:
     purge: true
     compress: true
     use_cache: true
+    squash: true
     cache_from: "modem7/docker-rickroll:4k"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
       - linux/amd64
@@ -334,9 +333,6 @@ trigger:
   cron:
   - rickroll_4k
 
-depends_on:
-  - lint
-
 ---
 
 kind: pipeline
@@ -348,6 +344,14 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint ./4k/onclick/Dockerfile*
+
+steps:
 - name: 4konclick
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -356,6 +360,7 @@ steps:
     purge: true
     compress: true
     use_cache: true
+    squash: true
     cache_from: "modem7/docker-rickroll:4konclick"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
       - linux/amd64
@@ -384,9 +389,6 @@ trigger:
   cron:
   - rickroll_4konclick
 
-depends_on:
-  - lint
-
 ---
 
 kind: pipeline
@@ -398,6 +400,14 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint ./test/Dockerfile*
+
+steps:
 - name: test build
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -405,15 +415,15 @@ steps:
     repo: modem7/docker-rickroll
     purge: true
     compress: true
-    use_cache: true
-    cache_from: "modem7/docker-rickroll:test"
+    # use_cache: true
+    # cache_from: "modem7/docker-rickroll:test"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
       - linux/amd64
       # - linux/arm/v6
       # - linux/arm/v7
       # - linux/arm64/v8
     dockerfile: test/Dockerfile
-    # context: test/
+    context: test/
     username:
       from_secret: docker_username
     password:
